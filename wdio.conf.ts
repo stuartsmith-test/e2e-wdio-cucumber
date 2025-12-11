@@ -1,4 +1,5 @@
-export const config: WebdriverIO.Config = {
+// accounting for dbPath as a custom setting with '&' addition
+export const config: WebdriverIO.Config & { dbPath: string } = {
     //
     // ====================
     // Runner Configuration
@@ -7,6 +8,7 @@ export const config: WebdriverIO.Config = {
     runner: 'local',
     tsConfigPath: './tsconfig.json',
     baseUrl: 'http://localhost:3000',
+    dbPath: '../test-automation-foundations-728391/shop.db',
     
     //
     // ==================
@@ -131,7 +133,7 @@ export const config: WebdriverIO.Config = {
     // If you are using Cucumber you need to specify the location of your step definitions.
     cucumberOpts: {
         // <string[]> (file/dir) require files before executing features
-        require: ['./features/step-definitions/steps.ts'],
+        require: ['./features/step-definitions/*.steps.ts'],
         // <boolean> show full backtrace for errors
         backtrace: false,
         // <string[]> ("extension:module") require files with the given EXTENSION after requiring MODULE (repeatable)

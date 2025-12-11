@@ -1,4 +1,8 @@
-import * as sqlite3 from 'sqlite3';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+
+// Use the manually created 'require' to load the old library
+const sqlite3 = require('sqlite3').verbose();
 import * as path from 'path';
 
 /**
@@ -14,14 +18,14 @@ export class DbUtils {
      * @param dbPath The absolute or relative path to shop.db (e.g., "app-under-test/shop.db")
      * @returns A Promise resolving to a SQLite Database connection.
      */
-    static getConnection(dbPath: string): Promise<sqlite3.Database> {
+    static getConnection(dbPath: string): Promise<any> {
         return new Promise((resolve, reject) => {
             // Resolve relative paths from the project root
             const resolvedPath = path.isAbsolute(dbPath)
                 ? dbPath
                 : path.resolve(process.cwd(), dbPath);
 
-            const db = new sqlite3.Database(resolvedPath, (err) => {
+            const db = new sqlite3.Database(resolvedPath, (err: any) => {
                 if (err) {
                     reject(err);
                 } else {
