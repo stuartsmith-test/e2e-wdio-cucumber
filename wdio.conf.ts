@@ -6,6 +6,7 @@ export const config: WebdriverIO.Config = {
     // WebdriverIO supports running e2e tests as well as unit and component tests.
     runner: 'local',
     tsConfigPath: './tsconfig.json',
+    baseUrl: 'http://localhost:3000',
     
     //
     // ==================
