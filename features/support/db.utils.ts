@@ -1,5 +1,5 @@
-import sqlite3 from 'sqlite3';
-import path from 'path';
+import * as sqlite3 from 'sqlite3';
+import * as path from 'path';
 
 /**
  * Database utility class for interacting with the SQLite shop.db.
