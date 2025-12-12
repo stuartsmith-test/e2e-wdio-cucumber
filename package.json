@@ -3,6 +3,7 @@
   "type": "module",
   "devDependencies": {
     "@types/node": "^24.10.2",
+    "@wdio/allure-reporter": "^9.21.0",
     "@wdio/cli": "^9.21.1",
     "@wdio/cucumber-framework": "^9.21.0",
     "@wdio/globals": "^9.17.0",

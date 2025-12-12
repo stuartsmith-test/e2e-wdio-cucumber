@@ -128,7 +128,15 @@ export const config: WebdriverIO.Config & { dbPath: string } = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
-    reporters: ['spec'],
+    reporters: [
+        'spec', // <--- Keeping spec, adding allure as well to save data and generate dashboard -SPS
+        ['allure', {
+            outputDir: 'allure-results',
+            disableWebdriverStepsReporting: true,
+            useCucumberStepReporter: true
+            // run "npx allure-commandline generate allure-results --clean && npx allure-commandline open" to view report
+        }]
+    ],
 
     // If you are using Cucumber you need to specify the location of your step definitions.
     cucumberOpts: {
