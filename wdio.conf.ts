@@ -8,7 +8,9 @@ export const config: WebdriverIO.Config & { dbPath: string } = {
     runner: 'local',
     tsConfigPath: './tsconfig.json',
     baseUrl: 'http://localhost:3000',
-    dbPath: '../test-automation-foundations-728391/shop.db',
+    // NEW LOGIC to run in CI: Use the Environment Variable (from CI) if it exists; 
+    // otherwise, fall back to the local relative path.
+    dbPath: process.env.DB_PATH || '../test-automation-foundations-728391/shop.db',
     
     //
     // ==================
