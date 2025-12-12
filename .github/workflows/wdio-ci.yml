@@ -1,0 +1,75 @@
+name: WebdriverIO CI
+
+on:
+  workflow_dispatch: {}
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    env:
+      APP_REPO: https://github.com/stuartsmith-test/test-automation-foundations-728391.git
+      APP_DIR: app-under-test
+      PORT: 3000
+
+    steps:
+      - name: Checkout Test Repo
+        uses: actions/checkout@v4
+
+      # --- APP SETUP ---
+
+      - name: Clone Sample App
+        run: git clone "$APP_REPO" "$APP_DIR"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          # We cache the TEST repo dependencies here (package-lock.json in root)
+          cache-dependency-path: package-lock.json
+
+      - name: Install and Start App
+        working-directory: ${{ env.APP_DIR }}
+        run: |
+          npm ci
+          # Start in background
+          nohup npm start >/dev/null 2>&1 &
+          echo $! > ../server.pid
+
+      - name: Wait for App to be Ready
+        run: |
+          echo "Waiting for app on port ${{ env.PORT }}..."
+          for i in {1..60}; do
+            if curl -sSf "http://localhost:${{ env.PORT }}/" >/dev/null; then
+              echo "✅ App is up!"
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "❌ App did not start in time" >&2
+          exit 1
+
+      # --- TEST EXECUTION ---
+
+      - name: Install Test Dependencies
+        run: npm ci
+
+      - name: Run WebdriverIO Tests
+        # We override DB_PATH because in CI, the app is in 'app-under-test', not '../'
+        run: npm run wdio
+        env:
+          DB_PATH: app-under-test/shop.db
+          BASE_URL: http://localhost:3000
+
+      - name: Stop App
+        if: always()
+        run: |
+          if [ -f server.pid ]; then
+            kill "$(cat server.pid)" || true
+          fi
