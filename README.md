@@ -72,8 +72,6 @@ e2e-wdio-cucumber/
 
 ---
 
----
-
 ## Setup & Configuration
 
 ### 1. Clone This Repository
@@ -138,7 +136,7 @@ npm test
 ### Run a Specific Feature
 
 ```bash
-npx wdio run wdio.conf.ts --spec features/add_to_cart.feature
+npx wdio run wdio.conf.ts --spec features/AddToCart.feature
 ```
 
 ### View Allure Report
@@ -146,8 +144,8 @@ npx wdio run wdio.conf.ts --spec features/add_to_cart.feature
 After a test run:
 
 ```bash
-npx allure generate allure-results --clean -o allure-report
-npx allure open allure-report
+npx allure-commandline generate allure-results --clean
+npx allure-commandline open
 ```
 
 ---
@@ -158,7 +156,7 @@ npx allure open allure-report
 Linux environments require system libraries (fonts, drivers) to run Chrome. Run this sequence once:
 
 ```bash
-wget [https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb](https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb)
+wget wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 sudo apt-get update
 sudo apt-get install -y ./google-chrome-stable_current_amd64.deb
 ```
