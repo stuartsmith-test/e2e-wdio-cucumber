@@ -59,11 +59,10 @@ export const config: WebdriverIO.Config & { dbPath: string } = {
     capabilities: [{
         browserName: 'chrome',
         'goog:chromeOptions': {
-            // LOGIC: Use headless mode if:
-            // 1. We passed '--headless' in the command line
-            // 2. OR if we are running in CI (GitHub Actions)
-            args: (process.argv.includes('--headless') || process.env.CI)
-                ? ['--headless', '--disable-gpu', '--disable-dev-shm-usage', '--no-sandbox']
+            // LOGIC: Use headless mode if in CI, Codespaces, or manually requested.
+            // We use '--headless=new' which is the modern standard for Chrome 109+.
+            args: (process.env.CI || process.env.CODESPACES || process.argv.includes('--headless'))
+                ? ['--headless=new', '--disable-gpu', '--disable-dev-shm-usage', '--no-sandbox']
                 : ['--disable-gpu', '--disable-dev-shm-usage', '--no-sandbox']
         }
     }],

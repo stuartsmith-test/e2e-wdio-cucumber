@@ -153,15 +153,12 @@ npx allure open allure-report
 
 ## ☁️ Running in GitHub Codespaces (or Headless Linux)
 
-If you are running this in a cloud environment like GitHub Codespaces, you do not need to install Chrome manually (WebdriverIO handles the binary). You simply need to run in **Headless Mode**.
+This framework includes **Smart Environment Detection**.
 
-### Run in Headless Mode
-
-Since there is no monitor, you must tell the test runner to execute without a UI window:
-
+If you run the tests in a headless environment (like GitHub Codespaces or CI), the configuration automatically detects it and switches Chrome to **Headless Mode**. You do not need to pass any extra flags.
 
 ```bash
-npm run wdio -- --headless
+npm test
 ```
 
 ---
