@@ -87,12 +87,14 @@ cd e2e-wdio-cucumber
 
 The tests run against the [Test Automation Foundations](https://github.com/stuartsmith-test/test-automation-foundations-728391) app (forked from LinkedIn Learning).
 
+For a self-contained setup (recommended for Codespaces or new clones), clone the app into a child directory:
+
 **Clone the app into a separate folder:**
 
 ```bash
-# You can clone this anywhere, but keep track of the path!
-git clone https://github.com/stuartsmith-test/test-automation-foundations-728391.git ../test-automation-foundations-728391
-cd ../test-automation-foundations-728391
+
+git clone https://github.com/stuartsmith-test/test-automation-foundations-728391.git app-under-test
+cd app-under-test
 npm ci  # Clean install of dependencies
 ```
 
@@ -117,12 +119,11 @@ This installs WebdriverIO v8, Cucumber framework, TypeScript, Axios, SQLite3, an
 
 ### 4. Verify Configuration
 
-Check that `wdio.conf.ts` has the correct paths:
+Check that `wdio.conf.ts` has the correct base URL:
 
 * **`baseUrl`:** `http://localhost:3000`
-* **`dbPath`:** `../test-automation-foundations-728391/shop.db`
 
-Adjust if you cloned the app elsewhere.
+(Note: The `dbPath` is automatically handled by the configuration logic.)
 
 ---
 
@@ -153,9 +154,16 @@ npx allure open allure-report
 
 ## ☁️ Running in GitHub Codespaces (or Headless Linux)
 
-This framework includes **Smart Environment Detection**.
+### Install System Dependencies
+Linux environments require system libraries (fonts, drivers) to run Chrome. Run this sequence once:
 
-If you run the tests in a headless environment (like GitHub Codespaces or CI), the configuration automatically detects it and switches Chrome to **Headless Mode**. You do not need to pass any extra flags.
+```bash
+wget [https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb](https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb)
+sudo apt-get update
+sudo apt-get install -y ./google-chrome-stable_current_amd64.deb
+```
+### Run Tests
+The framework automatically detects the environment and switches to Headless Mode.
 
 ```bash
 npm test

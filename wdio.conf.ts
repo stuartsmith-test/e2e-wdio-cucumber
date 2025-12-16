@@ -1,3 +1,7 @@
+// Node.js built-in modules
+import * as path from 'path'; // Utilities for handling file paths reliably across OSs (Windows/Linux)
+import * as fs from 'fs';     // File System module, used here to check if specific files exist on disk
+
 // accounting for dbPath as a custom setting with '&' addition
 export const config: WebdriverIO.Config & { dbPath: string } = {
     //
@@ -8,9 +12,12 @@ export const config: WebdriverIO.Config & { dbPath: string } = {
     runner: 'local',
     tsConfigPath: './tsconfig.json',
     baseUrl: 'http://localhost:3000',
-    // NEW LOGIC to run in CI: Use the Environment Variable (from CI) if it exists; 
-    // otherwise, fall back to the local relative path.
-    dbPath: process.env.DB_PATH || '../test-automation-foundations-728391/shop.db',
+    // DYNAMIC DB PATH
+    // Logic: Check if the 'app-under-test' child folder exists (Codespaces/CI).
+    // If yes, use it. If no, assume we are local and use the sibling folder.
+    dbPath: fs.existsSync(path.join(process.cwd(), 'app-under-test', 'shop.db'))
+        ? path.join(process.cwd(), 'app-under-test', 'shop.db')
+        : path.join(process.cwd(), '../test-automation-foundations-728391/shop.db'),
     
     //
     // ==================
