@@ -57,7 +57,15 @@ export const config: WebdriverIO.Config & { dbPath: string } = {
     // https://saucelabs.com/platform/platform-configurator
     //
     capabilities: [{
-        browserName: 'chrome'
+        browserName: 'chrome',
+        'goog:chromeOptions': {
+            // LOGIC: Use headless mode if:
+            // 1. We passed '--headless' in the command line
+            // 2. OR if we are running in CI (GitHub Actions)
+            args: (process.argv.includes('--headless') || process.env.CI)
+                ? ['--headless', '--disable-gpu', '--disable-dev-shm-usage', '--no-sandbox']
+                : ['--disable-gpu', '--disable-dev-shm-usage', '--no-sandbox']
+        }
     }],
 
     //

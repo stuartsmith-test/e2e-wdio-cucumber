@@ -1,4 +1,4 @@
-[![WebdriverIO](https://img.shields.io/badge/WebdriverIO-v8-green)](https://webdriver.io/) [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)](https://www.typescriptlang.org/) [![Cucumber](https://img.shields.io/badge/Cucumber-BDD-yellow)](https://cucumber.io/) ![Build Status](https://github.com/stuartsmith-test/e2e-wdio-cucumber/actions/workflows/wdio-test.yml/badge.svg)
+[![WebdriverIO](https://img.shields.io/badge/WebdriverIO-v8-green)](https://webdriver.io/) [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)](https://www.typescriptlang.org/) [![Cucumber](https://img.shields.io/badge/Cucumber-BDD-yellow)](https://cucumber.io/) ![Build Status](https://github.com/stuartsmith-test/e2e-wdio-cucumber/actions/workflows/wdio-ci.yml/badge.svg)
 
 # E2E Automation: WebdriverIO + Cucumber (TypeScript)
 
@@ -6,7 +6,7 @@
 
 This repository is a personal initiative to explore **modern Node.js-based test automation patterns** through framework migration.
 
-The project was generated using an **AI-First workflow** (Copilot/Claude) to demonstrate rapid porting of a [Python/Playwright architecture](https://github.com/stuartsmith-test/e2e-playwright) into a **TypeScript/WebdriverIO/Cucumber** environment. It showcases how domain-aware AI agents can accelerate framework setup and test generation.
+The project was generated using an **AI-First workflow** (Copilot/Claude) to achieve rapid porting of a [Python/Playwright architecture](https://github.com/stuartsmith-test/e2e-playwright) into a **TypeScript/WebdriverIO/Cucumber** environment. It demonstrates how domain-aware AI agents can accelerate framework setup and test generation.
 
 ### Technical Scope
 
@@ -29,7 +29,7 @@ This project requires Node.js.
 * **Check version:** `node -v` and `npm -v`
 * **Install:** [Download Node.js](https://nodejs.org/) or use a package manager (e.g., `brew install node`).
 
-### 3. Git
+### 2. Git
 
 To clone both this repo and the test application (app-under-test).
 
@@ -90,9 +90,10 @@ The tests run against the [Test Automation Foundations](https://github.com/stuar
 **Clone the app into a separate folder:**
 
 ```bash
+# You can clone this anywhere, but keep track of the path!
 git clone https://github.com/stuartsmith-test/test-automation-foundations-728391.git ../test-automation-foundations-728391
 cd ../test-automation-foundations-728391
-npm ci
+npm ci  # Clean install of dependencies
 ```
 
 **Start the App:**
@@ -149,6 +150,22 @@ npx allure open allure-report
 ```
 
 ---
+
+## ☁️ Running in GitHub Codespaces (or Headless Linux)
+
+If you are running this in a cloud environment like GitHub Codespaces, you do not need to install Chrome manually (WebdriverIO handles the binary). You simply need to run in **Headless Mode**.
+
+### Run in Headless Mode
+
+Since there is no monitor, you must tell the test runner to execute without a UI window:
+
+
+```bash
+npm run wdio -- --headless
+```
+
+---
+
 
 ## Comparison: Python vs. TypeScript
 
