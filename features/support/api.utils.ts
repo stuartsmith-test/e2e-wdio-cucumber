@@ -17,7 +17,7 @@ export class ApiUtils {
     static initialize(baseUrl: string): void {
         this.client = axios.create({
             baseURL: baseUrl,
-            validateStatus: () => true, // Don't throw on any status code; we'll handle it
+            validateStatus: () => true, // Return response for all status codes (including errors); we handle errors manually in each method
         });
     }
 
