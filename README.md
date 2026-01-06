@@ -8,13 +8,24 @@ This repository is a personal initiative to explore **modern Node.js-based test 
 
 The project was generated using an **AI-First workflow** (Copilot/Claude) to achieve rapid porting of a [Python/Playwright architecture](https://github.com/stuartsmith-test/e2e-playwright) into a **TypeScript/WebdriverIO/Cucumber** environment. It demonstrates how domain-aware AI agents can accelerate framework setup and test generation.
 
-### Technical Scope
+---
+
+## Technical Scope
 
 * **Hybrid Framework:** Combines **WebdriverIO** (UI interactions) with **Axios** (API-based test data setup).
 * **Page Object Model (POM):** Encapsulates locators and behaviors in dedicated classes (`HomePage`, `CartPage`) to maintain clean test logic.
 * **Database Support:** Includes SQLite3 utilities for querying the application's database to verify backend state.
 * **BDD with Cucumber:** Human-readable Gherkin feature files bound to TypeScript step definitions.
 * **Automated CI Environment:** A GitHub Actions workflow that handles the full application lifecycle—cloning the SUT, starting the Node.js server, and running headless tests.
+* **(***NEW***) Accessibility Compliance (TAC 213):** Integrated Axe-core for automated WCAG 2.1 AA auditing. Utilizes a custom CDN-injection strategy to maintain compatibility with modern WebDriver BiDi protocols and provides detailed remediation trails via Allure Reporting: ![Accessibility Audit Log Screenshot](screenshots/accessibility-test-results.png)
+
+### *Compliance Monitoring*
+
+*The framework currently tracks known compliance debt for the System Under Test (SUT).
+
+* **Active Issue:** `html-has-lang` (Serious) — The root element is missing a mandatory language attribute.
+
+* **Handling:** Implemented via *Soft Assertion;* the suite logs the violation and remediation path in the Allure Audit Log while maintaining pipeline health for continuous integration.
 
 ---
 
