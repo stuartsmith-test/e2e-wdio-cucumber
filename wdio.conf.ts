@@ -121,7 +121,20 @@ export const config: WebdriverIO.Config & { dbPath: string } = {
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    // services: [],
+    
+    //services: [
+        //['visual', {
+            // This enables the accessibility checks within the visual service
+            // 1/5/26: adding capability for accessibility checks
+            // Options are empty because checkAccessibility uses defaults
+            // 1/6/26: commented out, alternate solution implemented within accessibility.steps.ts (dynamic CDN import) due to various issues encountered 
+      //      ['@wdio/visual-service', {
+      //          accessibility: {
+      //          runner: 'axe'
+      //          }               
+      //      }]
+      //  ],
+    
     //
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
