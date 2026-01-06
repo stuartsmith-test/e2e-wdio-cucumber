@@ -21,11 +21,11 @@ The project was generated using an **AI-First workflow** (Copilot/Claude) to ach
 
 ### *Compliance Monitoring*
 
-*The framework currently tracks known compliance debt for the System Under Test (SUT).
+The framework now tracks compliance debt for the SUT. During the initial implementation, I used Axe-core to audit the site and found the following:
 
 * **Active Issue:** `html-has-lang` (Serious) — The root element is missing a mandatory language attribute.
 
-* **Handling:** Implemented via *Soft Assertion;* the suite logs the violation and remediation path in the Allure Audit Log while maintaining pipeline health for continuous integration.
+* **My Approach:** I implemented this via a *Soft Assertion.* This ensures the violation and the specific remediation path are logged in the *Allure Audit Log* for the developers, but it doesn't "break the build," allowing for continuous feedback.
 
 ---
 
